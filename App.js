@@ -1,11 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font'
 import Welcome from './screens/Welcome';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     'DelaGothic': require('./src/assets/fonts/DelaGothic.ttf'),
+    'NotoSans-Regular': require('./src/assets/fonts/NotoSans-Regular.ttf'),
+    'NotoSans-Bold': require('./src/assets/fonts/NotoSans-Bold.ttf'),
+    'NotoSans-Medium': require('./src/assets/fonts/NotoSans-Medium.ttf'),
+    'NotoSans-ExtraBold': require('./src/assets/fonts/NotoSans-ExtraBold.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -13,17 +16,6 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Welcome/>
-    </View>
+    <Welcome/>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
