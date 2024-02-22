@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const HomeButton = ({ title }) => {
+const HomeButton = ({ onPress, title }) => {
     return (
-        <SafeAreaView style={styles.homeButton}>
+        <TouchableOpacity onPress={onPress} style={styles.homeButton}>
             <Text style={styles.homeButtonTextColor}>{title}</Text>
-        </SafeAreaView>
+        </TouchableOpacity>
     );
 }
 

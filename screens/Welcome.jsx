@@ -3,17 +3,18 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, SafeAreaView, Image, ImageBackground} from 'react-native';
 import HomeButton from '../src/components/HomeButton';
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
+
   return (
     <ImageBackground source={require('../src/assets/images/waveBackground.png')} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.text1}>
+        <Text allowFontScaling={false} style={styles.text1}> {/* allowFontScaling={false} evita font troppo grande se visualizzazione testo è High su altri dispositivi */}
           <Text style={{ color: 'black' }}>HOW TO </Text>
           <Text style={{ color: '#00bea5' }}>DO IT</Text>
         </Text>
-        <Text style={styles.text2}>IMPARA, OVUNQUE TU SIA!</Text>
-        <Image source={require('../src/assets/images/manWelcome.png')} style={styles.imageWelcome} />
-        <HomeButton style={styles.welcomeButton} title="CONTINUA"/>
+        <Text allowFontScaling={false} style={styles.text2}>IMPARA, OVUNQUE TU SIA!</Text>
+        <Image source={require('../src/assets/images/manWelcome.png')} style={styles.imageWelcome}/>
+        <HomeButton allowFontScaling={false}  title="CONTINUA" onPress={() => navigation.navigate("Home")}/>
         <StatusBar style="auto" />
       </SafeAreaView>
     </ImageBackground>

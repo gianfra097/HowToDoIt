@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ title }) => {
+const Button = ({ onPress, title }) => {
     return (
-        <SafeAreaView style={styles.button}>
+        <TouchableOpacity onPress={onPress} style={styles.button}>
             <Text style={styles.buttonTextColor}>{title}</Text>
-        </SafeAreaView>
+        </TouchableOpacity>
     );
 }
 
