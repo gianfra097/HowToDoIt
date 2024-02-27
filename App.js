@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import Welcome from './screens/Welcome';
 import Home from './screens/Home';
-import Pagina1 from './screens/Pagina1';
+import Pagina1 from './src/pages/Pagina1';
 
 const Stack = createNativeStackNavigator();  //Navigator per spostarmi nelle pagine con i buttons
 
