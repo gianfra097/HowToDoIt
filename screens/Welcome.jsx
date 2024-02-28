@@ -10,7 +10,7 @@ const Welcome = ({ navigation }) => {
 
   //Hook utilizzato per avviare l'animazione dell'immagine di benvenuto una volta che il componente è stato montato
   useEffect(() => {  
-    Animated.timing(
+    Animated.timing( //Fade per il testo con durata 1500
       fadeAnimText,
       {
         toValue: 1,
@@ -19,7 +19,7 @@ const Welcome = ({ navigation }) => {
       }
     ).start();
 
-    Animated.timing(
+    Animated.timing(  //Fade per immagine con durata 2000
       fadeAnimImage,
       {
         toValue: 1,
@@ -34,12 +34,36 @@ const Welcome = ({ navigation }) => {
   return (
     <ImageBackground source={require('../src/assets/images/waveBackground.png')} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
-        <Animated.Text allowFontScaling={false} style={[styles.text1, {opacity: fadeAnimText}]}> {/* allowFontScaling={false} evita font troppo grande se visualizzazione testo è High su altri dispositivi */}
+        <Animated.Text allowFontScaling={false} style={[styles.text1, {
+          opacity: fadeAnimText,
+          transform: [{
+            translateY: fadeAnimText.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-20, 0]
+            }),
+          }],
+          }]}> {/* allowFontScaling={false} evita font troppo grande se visualizzazione testo è High su altri dispositivi */}
           <Text style={{ color: 'black' }}>HOW TO </Text>
           <Text style={{ color: '#00bea5' }}>DO IT</Text>
         </Animated.Text>
-        <Animated.Text allowFontScaling={false} style={[styles.text2, {opacity: fadeAnimText}]}>IMPARA, OVUNQUE TU SIA!</Animated.Text>
-        <Animated.Image source={require('../src/assets/images/manWelcome.png')} style={[styles.imageWelcome, {opacity: fadeAnimImage}]}/>
+        <Animated.Text allowFontScaling={false} style={[styles.text2, {
+          opacity: fadeAnimText,
+          transform: [{
+            translateY: fadeAnimText.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-20, 0]
+            }),
+          }],
+          }]}>IMPARA, OVUNQUE TU SIA!</Animated.Text>
+        <Animated.Image source={require('../src/assets/images/manWelcome.png')} style={[styles.imageWelcome, {
+          opacity: fadeAnimText,
+          transform: [{
+            translateY: fadeAnimText.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-20, 0]
+            }),
+          }],
+          }]}/>
         <HomeButton allowFontScaling={false}  title="CONTINUA" onPress={() => navigation.navigate("Home")}/>
         <StatusBar style="auto" />
       </SafeAreaView>
