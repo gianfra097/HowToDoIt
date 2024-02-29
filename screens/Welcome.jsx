@@ -60,11 +60,20 @@ const Welcome = ({ navigation }) => {
           transform: [{
             translateY: fadeAnimText.interpolate({
               inputRange: [0, 1],
-              outputRange: [-20, 0]
+              outputRange: [-80, 0]
             }),
           }],
           }]}/>
-        <HomeButton allowFontScaling={false}  title="CONTINUA" onPress={() => navigation.navigate("Home")}/>
+        <Animated.View style={{ opacity: fadeAnimText, 
+        transform: [{
+          translateY: fadeAnimText.interpolate({
+            inputRange: [0, 1],
+            outputRange: [-100, 0]
+          }),
+        }],
+        }}>
+          <HomeButton allowFontScaling={false}  title="CONTINUA" onPress={() => navigation.navigate("Home")}/>
+        </Animated.View>
         <StatusBar style="auto" />
       </SafeAreaView>
     </ImageBackground>
