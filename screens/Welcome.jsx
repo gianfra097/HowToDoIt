@@ -7,6 +7,7 @@ const Welcome = ({ navigation }) => {
   //Costanti per memorizzare riferimento all'oggetto di animazione del testo e immagine
   const fadeAnimText = useRef(new Animated.Value(0)).current;
   const fadeAnimImage = useRef(new Animated.Value(0)).current;
+  const delayButton = useRef(new Animated.Value(0)).current;
 
   //Hook utilizzato per avviare l'animazione dell'immagine di benvenuto una volta che il componente è stato montato
   useEffect(() => {  
@@ -14,7 +15,7 @@ const Welcome = ({ navigation }) => {
       fadeAnimText,
       {
         toValue: 1,
-        duration: 1500,
+        duration: 1000,
         useNativeDriver: true
       }
     ).start();
@@ -23,10 +24,21 @@ const Welcome = ({ navigation }) => {
       fadeAnimImage,
       {
         toValue: 1,
-        duration: 2000,
-        useNativeDriver: true
+        duration: 300,
+        delay: 400,
+        useNativeDriver: true,
       }
     ).start(); //Montato quando viene aperta la pagina Welcome
+
+    Animated.timing( //Solo delay per il button
+      delayButton,
+      {
+        toValue: 1,
+        duration: 800,
+        delay: 450,
+        useNativeDriver: true
+      }
+    ).start();
 
   }, []);
 
@@ -56,7 +68,7 @@ const Welcome = ({ navigation }) => {
           }],
           }]}>IMPARA, OVUNQUE TU SIA!</Animated.Text>
         <Animated.Image source={require('../src/assets/images/manWelcome.png')} style={[styles.imageWelcome, {
-          opacity: fadeAnimText,
+          opacity: fadeAnimImage,
           transform: [{
             translateY: fadeAnimText.interpolate({
               inputRange: [0, 1],
@@ -64,11 +76,11 @@ const Welcome = ({ navigation }) => {
             }),
           }],
           }]}/>
-        <Animated.View style={{ opacity: fadeAnimText, 
+        <Animated.View style={{
         transform: [{
-          translateY: fadeAnimText.interpolate({
-            inputRange: [0, 1],
-            outputRange: [-100, 0]
+          translateY: delayButton.interpolate({
+            inputRange: [0, 0.5, 0.8, 1],
+            outputRange: [-70, 10, 2, 0]
           }),
         }],
         }}>
