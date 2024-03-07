@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const HomeButton = ({ onPress, title }) => {
+const WelcomeButton = ({ onPress, title }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={styles.homeButton}>
-            <Text style={styles.homeButtonTextColor}>{title}</Text>
+        <TouchableOpacity onPress={onPress} style={styles.welcomeButton}>
+            <Text style={styles.welcomeButtonTextColor}>{title}</Text>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-    homeButton: {
+    welcomeButton: {
         backgroundColor: '#00bea5',
         paddingVertical: 15,
         paddingHorizontal: 20,
@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         minWidth: 280,
     },
-    homeButtonTextColor: {
+    welcomeButtonTextColor: {
         fontFamily: 'NotoSans-ExtraBold',
         fontSize: 20,
         color: 'white'        
     },
 });
 
-export default HomeButton
+export default WelcomeButton

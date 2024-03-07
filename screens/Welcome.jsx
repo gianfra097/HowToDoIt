@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, SafeAreaView, Image, ImageBackground, Animated} from 'react-native';
-import HomeButton from '../src/components/HomeButton';
+import WelcomeButton from '../src/components/WelcomeButton';
 
 const Welcome = ({ navigation }) => {
   //Costanti per memorizzare riferimento all'oggetto di animazione del testo e immagine
@@ -84,7 +84,7 @@ const Welcome = ({ navigation }) => {
           }),
         }],
         }}>
-          <HomeButton allowFontScaling={false}  title="CONTINUA" onPress={() => navigation.navigate("Home")}/>
+          <WelcomeButton allowFontScaling={false}  title="CONTINUA" onPress={() => navigation.navigate("Home")}/>
         </Animated.View>
         <StatusBar style="auto" />
       </SafeAreaView>

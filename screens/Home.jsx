@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
-import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, Animated } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, ScrollView } from 'react-native'
 import { useIsFocused } from '@react-navigation/native';
-import Button from "../src/components/Button"
+import { Dimensions } from 'react-native';
 import SearchBar from '../src/components/SearchBar';
 
 const Home = ({ navigation }) => {
@@ -25,11 +25,12 @@ const Home = ({ navigation }) => {
 
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
-            <SafeAreaView style={styles.container}>
-                <Text style={styles.textColor}>CERCA UN ARGOMENTO:</Text>
-                <SearchBar/>
-                <Button title="Pagina1" onPress={newPage}/>
-            </SafeAreaView>
+            <ScrollView keyboardShouldPersistTaps="handled">
+                <SafeAreaView style={styles.container}>
+                    <Text allowFontScaling={false} style={styles.textColor}>CERCA UN ARGOMENTO:</Text>
+                    <SearchBar style={styles.searchBar}/>
+                </SafeAreaView>
+            </ScrollView>
         </ImageBackground>
     );
 }
@@ -37,17 +38,21 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
-        resizeMode: 'cover'
+        resizeMode: 'cover',
+        height: Dimensions.get('window').height, //Per evitare che la tastiera modifichi lo sfondo su Android
+        width: "100%",
     },
     container: {
         flex: 1,
+        margin: 30,
         //justifyContent: 'center',
-        alignItems: 'center',
+        //alignItems: 'center',
     },
     textColor: {
         fontSize: 25,
         fontFamily: 'NotoSans-Bold',
-        marginTop: 15,
+        marginTop: 20, //Margine tra linea inizio schermo e testo
+        marginBottom: 20, //Margine sotto tra testo e barra
         textAlign: 'center',
         justifyContent: 'center',
     },
