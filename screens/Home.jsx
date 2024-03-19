@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react'
-import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, ScrollView, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import SearchBar from '../src/components/SearchBar';
+import Categories from '../src/components/Categories';
 
 const Home = ({ navigation }) => {
     const isFocused = useIsFocused(); //Ottieni lo stato di focus della schermata (cioè pagina corrente, quindi HOME)
@@ -19,18 +20,22 @@ const Home = ({ navigation }) => {
         return () => backHandler.remove();
     }, []);
 
-    const newPage = () => {
-        navigation.navigate("Pagina1")
-    }
-
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
-            <ScrollView keyboardShouldPersistTaps="handled">
-                <SafeAreaView style={styles.container}>
-                    <Text allowFontScaling={false} style={styles.textColor}>CERCA UN ARGOMENTO:</Text>
-                    <SearchBar style={styles.searchBar}/>
+            <SafeAreaView style={styles.container}> 
+                <SafeAreaView style={styles.test1}>
+                    <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="handled">
+                        <Text allowFontScaling={false} style={styles.textColor}>CERCA UN ARGOMENTO:</Text>
+                        <SearchBar style={styles.searchBar}/>
+                        <Text style={styles.categories}>CATEGORIE:</Text>
+                    </ScrollView>
                 </SafeAreaView>
-            </ScrollView>
+                <SafeAreaView style={styles.categoriesContainer}>
+                    <ScrollView>
+                        <Categories/>
+                    </ScrollView>
+                </SafeAreaView>
+            </SafeAreaView>
         </ImageBackground>
     );
 }
@@ -45,8 +50,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 30,
-        //justifyContent: 'center',
-        //alignItems: 'center',
+    },
+    categoriesContainer: {
+        flex: 1,
     },
     textColor: {
         fontSize: 25,
@@ -55,6 +61,12 @@ const styles = StyleSheet.create({
         marginBottom: 20, //Margine sotto tra testo e barra
         textAlign: 'center',
         justifyContent: 'center',
+    },
+    categories: {
+        fontSize: 25,
+        fontFamily: 'NotoSans-Bold',
+        marginTop: 50,
+        textAlign: 'center',
     },
 });
 
