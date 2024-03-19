@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}> 
-                <SafeAreaView style={styles.test1}>
+                <SafeAreaView style={styles.searchContainer}>
                     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="handled">
                         <Text allowFontScaling={false} style={styles.textColor}>CERCA UN ARGOMENTO:</Text>
                         <SearchBar style={styles.searchBar}/>
@@ -53,10 +53,11 @@ const styles = StyleSheet.create({
     },
     categoriesContainer: {
         flex: 1,
+        marginTop: 15,
     },
     textColor: {
         fontSize: 25,
-        fontFamily: 'NotoSans-Bold',
+        fontFamily: 'Satoshi-Black',
         marginTop: 20, //Margine tra linea inizio schermo e testo
         marginBottom: 20, //Margine sotto tra testo e barra
         textAlign: 'center',
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     },
     categories: {
         fontSize: 25,
-        fontFamily: 'NotoSans-Bold',
+        fontFamily: 'Satoshi-Black',
         marginTop: 50,
         textAlign: 'center',
     },

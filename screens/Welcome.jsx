@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   text2: {
     fontSize: 20,
-    fontFamily: 'NotoSans-Medium',
+    fontFamily: 'Satoshi-Medium',
   },
   imageWelcome: {
     width: 500,

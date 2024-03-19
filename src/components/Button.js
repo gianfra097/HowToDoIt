@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         minWidth: 100,
     },
     buttonTextColor: {
-        fontFamily: 'NotoSans-ExtraBold',
+        fontFamily: 'Satoshi-Black',
         fontSize: 20,
         color: 'white'        
     },

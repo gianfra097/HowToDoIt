@@ -15,7 +15,7 @@ const Categories = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 10,
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",

@@ -11,10 +11,10 @@ const Stack = createNativeStackNavigator();  //Navigator per spostarmi nelle pag
 export default function App() {
   const [fontsLoaded] = useFonts({  //Importo i fonts
     'DelaGothic': require('./src/assets/fonts/DelaGothic.ttf'),
-    'NotoSans-Regular': require('./src/assets/fonts/NotoSans-Regular.ttf'),
-    'NotoSans-Bold': require('./src/assets/fonts/NotoSans-Bold.ttf'),
-    'NotoSans-Medium': require('./src/assets/fonts/NotoSans-Medium.ttf'),
-    'NotoSans-ExtraBold': require('./src/assets/fonts/NotoSans-ExtraBold.ttf'),
+    'Satoshi-Black': require('./src/assets/fonts/Satoshi-Black.ttf'),
+    'Satoshi-Bold': require('./src/assets/fonts/Satoshi-Bold.ttf'),
+    'Satoshi-Medium': require('./src/assets/fonts/Satoshi-Medium.ttf'),
+    'Satoshi-Regular': require('./src/assets/fonts/Satoshi-Regular.ttf'),
   });
 
   if (!fontsLoaded) {
