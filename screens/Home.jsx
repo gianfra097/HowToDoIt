@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, Sc
 import { LinearGradient } from 'expo-linear-gradient';
 import { useIsFocused } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 import SearchBar from '../src/components/SearchBar';
 import Categories from '../src/components/Categories';
 
@@ -26,15 +27,17 @@ const Home = ({ navigation }) => {
             <SafeAreaView style={styles.container}> 
                 <SafeAreaView style={styles.searchContainer}>
                     <ScrollView scrollEnabled={false} keyboardShouldPersistTaps="handled">
-                        <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO</Text>
+                        <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
                         <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
-                        <SearchBar style={styles.searchBar}/>
+                        <SearchBar/>
                     </ScrollView>
                 </SafeAreaView>
-                <LinearGradient style={styles.rectangle} colors={["#56d6c5", "#bbf2ea"]} start={{x: 1.5, y:1}} end={{x: 0.6, y: 2}}>
-                    <Text style={styles.textExplore}> Esplora le guide, {'\n'} libera il tuo potenziale </Text>
-                    <Image style={styles.brainImage} source={require('../src/assets/images/brain.png')}/>
-                </LinearGradient> 
+                <SafeAreaView style={styles.shadowContainer}>
+                    <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.2, y:1}} end={{x: 1, y: 0.4}}>
+                        <Text allowFontScaling={false} style={styles.textExplore}> Esplora le guide, {'\n'} libera il tuo potenziale </Text>
+                        <Image style={styles.brainImage} source={require('../src/assets/images/brain.png')}/>
+                    </LinearGradient> 
+                </SafeAreaView>
                 <SafeAreaView style={styles.categoriesContainer}>
                     <ScrollView>
                         <Text style={styles.textCategories}>Categorie:</Text>
@@ -72,11 +75,21 @@ const styles = StyleSheet.create({
         fontFamily: 'Satoshi-Bold',
         marginLeft: 20,
     },
+    shadowContainer: {
+        backgroundColor: "black",
+        borderRadius: 45,
+        height: 130,
+        marginTop: 20,
+        shadowColor: 'rgba(16, 24, 40, 0.08)',
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 1,
+        shadowRadius: 1,
+        elevation: 2, //Per Android
+    },
     rectangle: {
         height: 130,
         backgroundColor: '#5cd7c7',
         borderRadius: 40,
-        marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

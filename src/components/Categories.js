@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         flexWrap: "wrap",
+        shadowColor: 'rgba(16, 24, 40, 0.08)',
+        shadowOffset: { width: 4, height: 2 },
+        shadowOpacity: 1,
+        shadowRadius: 1,
+        elevation: 2, //Per Android
     },
     square: {
         width: 150,
