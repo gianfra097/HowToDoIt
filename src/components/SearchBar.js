@@ -7,7 +7,7 @@ const SearchBar = () => {
             <SafeAreaView style={styles.safeAreaSearchbar}>
                 <View style={styles.searchBarContainer}>
                     <Image style={styles.searchImage} source={require('../assets/images/searchBar.png')}/>
-                    <TextInput placeholder="Cerca l'argomento..." style={styles.searchBarInput}/>
+                    <TextInput placeholder="Cerca..." style={styles.searchBarInput}/>
                 </View>
             </SafeAreaView>
         </SafeAreaView>
@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 15,
         height: 40,
-        shadowColor: 'rgba(16, 24, 40, 0.08)',
-        shadowOffset: { width: 5, height: 4 },
-        shadowOpacity: 1,
-        shadowRadius: 1,
-        elevation: 2, //Per Android
+        shadowColor: "#000",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.08,
+        shadowRadius: 2,
+        elevation: 5, //Per ombra Android
         marginBottom: 5, //Margin per visualizzare ombra in basso
         marginHorizontal: 5, //Margin per evitare che venga tagliata l'ombra nell'angolo destro
         

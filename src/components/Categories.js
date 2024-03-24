@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, Text, Image } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, Image, Dimensions } from 'react-native'
 
 const Categories = () => {
 
@@ -20,18 +20,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         flexWrap: "wrap",
-        shadowColor: 'rgba(16, 24, 40, 0.08)',
-        shadowOffset: { width: 4, height: 2 },
-        shadowOpacity: 1,
-        shadowRadius: 1,
-        elevation: 2, //Per Android
     },
     square: {
-        width: 150,
-        height: 120,
+        width: Dimensions.get('window').width / 3 + 10,
+        height: Dimensions.get('window').height / 6,
         backgroundColor: "#86e3d6",
         marginBottom: 20,
         borderRadius: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 4, height: 3 },
+        shadowOpacity: 0.15,
+        shadowRadius: 2.5,
+        elevation: 6, //Per ombra Android
     },
     squareNotFirst: {
         marginLeft: 20,

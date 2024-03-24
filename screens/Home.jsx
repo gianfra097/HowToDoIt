@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react'
-import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, ScrollView, View } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, ScrollView, } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useIsFocused } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
 import SearchBar from '../src/components/SearchBar';
 import Categories from '../src/components/Categories';
 
@@ -22,6 +21,7 @@ const Home = ({ navigation }) => {
         return () => backHandler.remove();
     }, []);
 
+    /*
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}> 
@@ -47,6 +47,28 @@ const Home = ({ navigation }) => {
             </SafeAreaView>
         </ImageBackground>
     );
+    */
+    return (
+        <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={styles.container}> 
+                <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+                    <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
+                    <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
+                    <SearchBar/>
+                <SafeAreaView style={styles.shadowContainer}>
+                    <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.2, y:1}} end={{x: 1, y: 0.4}}>
+                        <Text allowFontScaling={false} style={styles.textExplore}> Esplora le guide, {'\n'} libera il tuo potenziale </Text>
+                        <Image style={styles.brainImage} source={require('../src/assets/images/brain.png')}/>
+                    </LinearGradient> 
+                </SafeAreaView>
+                <SafeAreaView style={styles.categoriesContainer}>
+                    <Text style={styles.textCategories}>Categorie:</Text>
+                    <Categories/>
+                </SafeAreaView>
+                </ScrollView>
+            </SafeAreaView>
+        </ImageBackground>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -55,6 +77,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         height: Dimensions.get('window').height, //Per evitare che la tastiera modifichi lo sfondo su Android
         width: "100%",
+        height: "100%"
     },
     container: {
         flex: 1,
@@ -80,11 +103,11 @@ const styles = StyleSheet.create({
         borderRadius: 45,
         height: 130,
         marginTop: 20,
-        shadowColor: 'rgba(16, 24, 40, 0.08)',
+        shadowColor: "#000",
         shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 1,
-        shadowRadius: 1,
-        elevation: 2, //Per Android
+        shadowOpacity: 0.15,
+        shadowRadius: 2.5,
+        elevation: 7, //Per ombra Android
     },
     rectangle: {
         height: 130,
@@ -100,9 +123,11 @@ const styles = StyleSheet.create({
         marginLeft: 8,
     },
     brainImage: {
-        height: 100,
-        width: 130,
-        marginRight: 10,
+        flex: 1,
+        resizeMode: 'cover',
+        height: "60%",
+        width: "60%",
+        marginRight: 5,
     },
     categoriesContainer: {
         flex: 1,
