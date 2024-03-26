@@ -1,16 +1,16 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, Text, Image, Dimensions } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, Image, Dimensions, FlatList } from 'react-native'
 
 const Categories = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {Array.from(Array(18).keys()).map(i => ( // Scorri gli elementi del db
+            {Array.from(Array(10).keys()).map(i => ( // Scorri gli elementi del db
                 <SafeAreaView key={i} style={[styles.square, i % 2 != 0 && styles.squareNotFirst]}/> //Applica lo stile squareNotFirst solo se non è il primo quadrato della riga
             ))}
         </SafeAreaView>
-    );
-
+    )
+    
 }
 
 const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         elevation: 6, //Per ombra Android
     },
     squareNotFirst: {
-        marginLeft: 20,
+        marginLeft: 30,
     }
 })
 
