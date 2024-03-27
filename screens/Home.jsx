@@ -53,7 +53,7 @@ const Home = ({ navigation }) => {
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}>
-                <FlatList showsVerticalScrollIndicator={false} data={['homeScreenComponents']} renderItem={({ item }) => {
+                <FlatList keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false} data={['homeScreenComponents']} renderItem={({ item }) => {
                     switch (item) {
                         case 'homeScreenComponents':
                             return (
