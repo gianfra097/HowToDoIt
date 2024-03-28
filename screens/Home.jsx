@@ -24,32 +24,6 @@ const Home = ({ navigation }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false); //Per popup Modal
 
-    //Con ScrollView, meglio di no visto scrollEventThrottle
-    /*
-    return (
-        <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
-            <SafeAreaView style={styles.container}> 
-                <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
-                    <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
-                    <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
-                    <SearchBar/>
-                <SafeAreaView style={styles.shadowContainer}>
-                    <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.6, y:1}} end={{x: 1, y: 0.7}}>
-                        <Text allowFontScaling={false} style={styles.textExplore}> Esplora le guide, {'\n'} libera il tuo potenziale </Text>
-                        <Image style={styles.brainImage} source={require('../src/assets/images/brain.png')}/>
-                    </LinearGradient> 
-                </SafeAreaView>
-                <SafeAreaView style={styles.categoriesContainer}>
-                    <Text style={styles.textCategories}>Categorie:</Text>
-                    <Categories/>
-                </SafeAreaView>
-                </ScrollView>
-            </SafeAreaView>
-        </ImageBackground>
-    );
-    */
-
-    //Con FlatList
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}>
@@ -112,9 +86,8 @@ const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        height: Dimensions.get('window').height, //Per evitare che la tastiera modifichi lo sfondo su Android
         width: "100%",
-        height: "100%"
+        height: Dimensions.get('screen').height, //Per evitare che la tastiera modifichi lo sfondo su Android utilizza screen no window
     },
     container: {
         flex: 1,
@@ -157,9 +130,11 @@ const styles = StyleSheet.create({
     brainImage: {
         flex: 1,
         resizeMode: 'cover',
-        height: "65%",
-        width: "60%",
+        height: Dimensions.get('window').height/10,  //Per migliorare risoluzione su altri dispositivi
         marginRight: 5,
+        //height: "70%",
+        //width: "60%",
+        //width: Dimensions.get('window').width/10,
     },
     categoriesContainer: {
         flex: 1,
