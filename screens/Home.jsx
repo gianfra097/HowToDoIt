@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, FlatList, TouchableOpacity, Modal, } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useIsFocused } from '@react-navigation/native';
-import { Dimensions } from 'react-native';
 import SearchBar from '../src/components/SearchBar';
 import Categories from '../src/components/Categories';
 import Svg, { Path, G } from 'react-native-svg';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window')
 
 const Home = ({ navigation }) => {
     const isFocused = useIsFocused(); //Ottieni lo stato di focus della schermata (cioè pagina corrente, quindi HOME)
@@ -94,19 +96,20 @@ const styles = StyleSheet.create({
         margin: 30,
     },
     textWelcome: {
-        fontSize: 35,
+        fontSize: width / 12,
         fontFamily: 'DelaGothic',
         marginTop: 20, //Margine tra linea inizio schermo e testo
     },
     textGuide: {
-        fontSize: 20,
+        fontSize: width / 18,
         fontFamily: 'Satoshi-Bold',
         marginBottom: 20, //Margine sotto tra testo e barra
     },
     shadowContainer: {
         backgroundColor: "black",
         borderRadius: 45,
-        height: 130,
+        //height: 130,
+        height: Dimensions.get('window').height/6.9,
         marginTop: 20,
         shadowColor: "#000",
         shadowOffset: { width: 5, height: 5 },
@@ -115,7 +118,8 @@ const styles = StyleSheet.create({
         elevation: 7, //Per ombra Android
     },
     rectangle: {
-        height: 130,
+        //height: 130,
+        height: Dimensions.get('window').height/6.9,
         backgroundColor: '#5cd7c7',
         borderRadius: 40,
         flexDirection: 'row',
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     textExplore: {
-        fontSize: 20,
+        fontSize: width / 21,
         fontFamily: 'Satoshi-Bold',
         marginLeft: 8,
     },
@@ -141,7 +145,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     textCategories: {
-        fontSize: 25,
+        fontSize: width / 15,
         fontFamily: 'Satoshi-Bold',
         marginLeft: 20,
     },

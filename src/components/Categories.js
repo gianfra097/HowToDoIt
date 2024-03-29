@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
     },
     square: {
-        width: Dimensions.get('window').width / 3 + 10,
+        width: Dimensions.get('window').width / 3 + 6,
         height: Dimensions.get('window').height / 6,
         backgroundColor: "#86e3d6",
         marginBottom: 20,
