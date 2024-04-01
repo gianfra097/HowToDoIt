@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard } from "react-native";
 import Svg, { Path, G } from 'react-native-svg';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window')
 
 const SearchBar = () => {
 
@@ -25,6 +28,7 @@ const SearchBar = () => {
                         setTextInputIsOpen(true)} 
                         onBlur={() => setTextInputIsOpen(false)} 
                         placeholder="Cerca..." 
+                        allowFontScaling={false}
                         style={styles.searchBarInput}/>
                         {isTextInputOpen && 
                     <TouchableOpacity style={styles.containerX} onPress={deleteText}>
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
     searchContainerShadow: {
         backgroundColor: "white",
         borderRadius: 15,
-        height: 40,
+        height: Dimensions.get('window').height/20,
         shadowColor: "#000",
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.08,
@@ -66,17 +70,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 15,
         backgroundColor: "#f8f8f8",
-        height: 40,
+        height: Dimensions.get('window').height/20,
     },
     searchImage: {
-        height: 30,
-        width: 30,
+        height: "80%",
+        width: "10%",
+        resizeMode: "contain",
         marginLeft: 10,
     },
     searchBarInput: {
-        padding: 8,
-        fontSize: 15,
-        flex: 1,  //Occupa tutta la larghezza a disposizione
+        marginLeft: 8,
+        fontSize: width / 25,
+        flex: 1,
     },
     containerX: {
         marginRight: 5,

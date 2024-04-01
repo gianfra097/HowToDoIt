@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, SafeAreaView, Image, ImageBackground, Animated} from 'react-native';
 import WelcomeButton from '../src/components/WelcomeButton';
+import { Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window')
 
 const Welcome = ({ navigation }) => {
   //Costanti per memorizzare riferimento all'oggetto di animazione del testo e immagine
@@ -96,7 +99,9 @@ const Welcome = ({ navigation }) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover'
+    resizeMode: 'cover',
+    width: "100%",
+    height: Dimensions.get('screen').height,
   },
   container: {
     flex: 1,
@@ -104,17 +109,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text1: {
-    fontSize: 38,
+    fontSize: width / 10,
     fontFamily: 'DelaGothic',
   },
   text2: {
-    fontSize: 20,
+    fontSize: width / 20,
     fontFamily: 'Satoshi-Medium',
   },
   imageWelcome: {
-    width: 500,
-    height: 500,
-    resizeMode: 'contain',
+    width: "100%",
+    height: "60%",
+    resizeMode: "cover"
   },
 });
 
