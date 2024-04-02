@@ -1,7 +1,25 @@
-import React from 'react'
-import { StyleSheet, SafeAreaView, Text, Image, Dimensions, FlatList } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, SafeAreaView, Text, Image, Dimensions} from 'react-native'
+import { supabase } from '../lib/supabase'
 
 const Categories = () => {
+
+    const [allCategories, setAllCategories] = useState([])
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const {data, error} = await supabase.from("Categories").select('*')
+
+            if(error){
+                console.log(error)
+            } else {
+                setAllCategories(data)
+            }
+        }
+        fetchCategories()
+    }, [])
+   
+    console.log(allCategories)
    
     return (
         <SafeAreaView style={styles.container}>
