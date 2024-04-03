@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.15,
         shadowRadius: 2.5,
-        elevation: 7, //Per ombra Android
+        elevation: 4, //Per ombra Android
+        marginLeft: Platform.OS === 'android' ? 1 : 0,
     },
     rectangle: {
         height: Dimensions.get('window').height/6.9,

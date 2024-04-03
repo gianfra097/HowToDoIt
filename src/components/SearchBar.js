@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.08,
         shadowRadius: 2,
-        elevation: 5, //Per ombra Android
+        elevation: 3, //Per ombra Android
         marginBottom: 5, //Margin per visualizzare ombra in basso
         marginHorizontal: 5, //Margin per evitare che venga tagliata l'ombra nell'angolo destro
         
