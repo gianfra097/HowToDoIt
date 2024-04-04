@@ -19,15 +19,6 @@ const Categories = () => {
         fetchCategories()
     }, [])
    
-    /*
-    return (
-        <SafeAreaView style={styles.container}>
-            {Array.from(Array(10).keys()).map(i => ( // Scorri gli elementi del db
-                <SafeAreaView key={i} style={[styles.square, i % 2 != 0 && styles.squareNotFirst]}/> //Applica lo stile squareNotFirst solo se non è il primo quadrato della riga
-            ))}
-        </SafeAreaView>
-    )
-    */
     return (
         <SafeAreaView style={styles.container}>
             {allCategories.map((category, index) => (
