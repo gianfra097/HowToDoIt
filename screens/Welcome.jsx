@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, Image, ImageBackground, Animated} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, Image, ImageBackground, Animated, Dimensions} from 'react-native';
 import WelcomeButton from '../src/components/WelcomeButton';
-import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 

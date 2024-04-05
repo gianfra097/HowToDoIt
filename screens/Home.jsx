@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, FlatList, TouchableOpacity, Modal, } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, FlatList, TouchableOpacity, Modal, Dimensions} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useIsFocused } from '@react-navigation/native';
 import SearchBar from '../src/components/SearchBar';
 import Categories from '../src/components/Categories';
 import Svg, { Path, G } from 'react-native-svg';
-import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 

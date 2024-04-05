@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, SafeAreaView, Text, Image, Dimensions} from 'react-native'
+import { StyleSheet, SafeAreaView, Text, Image, Dimensions, TouchableOpacity} from 'react-native'
 import { supabase } from '../lib/supabase'
+import { useNavigation } from '@react-navigation/native';
+import GuidesPage from '../pages/GuidesPage'
 
 const Categories = () => {
 
+    const navigation = useNavigation();
     const [allCategories, setAllCategories] = useState([])
 
     useEffect(() => {
@@ -23,9 +26,11 @@ const Categories = () => {
         <SafeAreaView style={styles.container}>
             {allCategories.map((category, index) => (
                 <SafeAreaView key={index}>
-                    <SafeAreaView style={[styles.square, index % 2 != 0 && styles.squareNotFirst]}>
-                    <Image style={styles.categoriesImage} source={{ uri: category.image }}/>
-                    </SafeAreaView>
+                    <TouchableOpacity onPress={() => navigation.navigate("GuidesPage", {clickedCategory: category.name})}>
+                        <SafeAreaView style={[styles.square, index % 2 != 0 && styles.squareNotFirst]}>
+                            <Image style={styles.categoriesImage} source={{ uri: category.image }}/>
+                        </SafeAreaView>
+                    </TouchableOpacity>
                     <Text allowFontScaling={false} style={[styles.categoriesText, index % 2 != 0 && styles.categoriesTextNotFirst]}>{category.name}</Text>
                 </SafeAreaView>
             ))}
