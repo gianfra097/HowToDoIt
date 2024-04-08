@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground } from "react-native"
+import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground, FlatList } from "react-native"
 import Svg, { Path, G } from 'react-native-svg';
 import SearchBar from '../components/SearchBar';
 import Guides from '../components/Guides';
@@ -7,10 +7,13 @@ import Guides from '../components/Guides';
 const { width } = Dimensions.get('window')
 
 const GuidesPage = ({ route }) => {
-    const { clickedCategory } = route.params
+
+    const clickedCategory = route.params.clickedCategory;
+    const categoryID = route.params.categoryID;
+
     return(
         <ImageBackground source={require('../assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
-            <SafeAreaView style={styles.container}>        
+            <SafeAreaView style={styles.container}>    
                 <SafeAreaView style={styles.backArrow}>
                     <Svg fill="#ffffff" width={25} height={25} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="#ffffff">
                         <G id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -28,7 +31,14 @@ const GuidesPage = ({ route }) => {
                 <SafeAreaView style={styles.spaceContainer}/>
                 <SafeAreaView style={styles.guidesContainer}>
                     <Text allowFontScaling={false} style={styles.clickedCategory}>{clickedCategory}</Text>
-                    <Guides/>
+                    <FlatList keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false} data={['guidesComponents']} renderItem={({ item }) => {
+                        switch (item) {
+                            case 'guidesComponents':
+                                return (
+                                    <Guides categoryID={categoryID}/>
+                                );
+                        }
+                    }}/>
                 </SafeAreaView>
             </SafeAreaView>
         </ImageBackground>

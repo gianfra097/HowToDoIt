@@ -26,7 +26,7 @@ const Categories = () => {
         <SafeAreaView style={styles.container}>
             {allCategories.map((category, index) => (
                 <SafeAreaView key={index}>
-                    <TouchableOpacity onPress={() => navigation.navigate("GuidesPage", {clickedCategory: category.name})}>
+                    <TouchableOpacity onPress={() => navigation.navigate("GuidesPage", {clickedCategory: category.name, categoryID: category.id})}>
                         <SafeAreaView style={[styles.square, index % 2 != 0 && styles.squareNotFirst]}>
                             <Image style={styles.categoriesImage} source={{ uri: category.image }}/>
                         </SafeAreaView>
