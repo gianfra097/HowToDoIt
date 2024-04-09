@@ -3,9 +3,12 @@ import { StyleSheet, SafeAreaView, Text, Dimensions, TouchableOpacity} from 'rea
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, G } from 'react-native-svg';
 import { supabase } from '../lib/supabase'
+import { useNavigation } from '@react-navigation/native';
+import GuideInfo from '../pages/GuideInfo';
 
 const Guides = ({ categoryID }) => {
 
+    const navigation = useNavigation();
     const [allGuides, setAllGuides] = useState([])
 
     useEffect(() => {
@@ -25,7 +28,7 @@ const Guides = ({ categoryID }) => {
         <SafeAreaView style={styles.container}>
             {allGuides.map((guide, index) => (
                 <SafeAreaView key={index}>
-                    <TouchableOpacity /*onPress={() => navigation.navigate("GuidesPage", {clickedCategory: category.name})}*/>
+                    <TouchableOpacity onPress={() => navigation.navigate("GuideInfo", {clickedGuideID: guide.id})}>
                         <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.8, y:1.3}} end={{x: 1, y: 0}}>
                             <SafeAreaView style={styles.containerCircle}>
                                 <Svg style={styles.svg} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

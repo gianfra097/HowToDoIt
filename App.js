@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import Welcome from './screens/Welcome';
 import Home from './screens/Home';
 import GuidesPage from './src/pages/GuidesPage';
+import GuideInfo from './src/pages/GuideInfo';
 
 const Stack = createNativeStackNavigator();  //Navigator per spostarmi nelle pagine con i buttons
 
@@ -29,6 +30,7 @@ export default function App() {
         <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }}/>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false, gestureEnabled: false }}/>
         <Stack.Screen name="GuidesPage" component={GuidesPage} options={{ headerShown: false }}/>
+        <Stack.Screen name="GuideInfo" component={GuideInfo} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
