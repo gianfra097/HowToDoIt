@@ -67,7 +67,7 @@ const Home = ({ navigation }) => {
                             <SafeAreaView>
                                 <TouchableOpacity activeOpacity={1} style={styles.objectModalContainer}>
                                     <Text style={{fontFamily: 'Satoshi-Black', marginTop: 10, marginBottom: 5}} allowFontScaling={false}>Version:</Text>
-                                    <Text style={{fontFamily: 'Satoshi-Bold', marginBottom: 15}} allowFontScaling={false}>0.1</Text>
+                                    <Text style={{fontFamily: 'Satoshi-Bold', marginBottom: 15}} allowFontScaling={false}>1.0</Text>
                                     <Text style={{fontFamily: 'Satoshi-Black', marginBottom: 5}} allowFontScaling={false}>Developed by:</Text>
                                     <Text style={{fontFamily: 'Satoshi-Bold', marginBottom: 15}} allowFontScaling={false}>Gianfranco Iaria</Text>
                                     <Text style={{fontFamily: 'Satoshi-Black', marginBottom: 5}} allowFontScaling={false}>Contacts:</Text>
