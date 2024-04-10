@@ -53,7 +53,7 @@ const GuideInfo = ({ route }) => {
             <SafeAreaView style={styles.container}>
                 <SafeAreaView style={styles.buttons}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Svg fill="#ffffff" width={25} height={25} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="#ffffff">
+                        <Svg fill="#ffffff" width={30} height={30} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="#ffffff">
                             <G id="SVGRepo_bgCarrier" stroke-width="0"/>
                             <G id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
                             <G id="SVGRepo_iconCarrier"> 
@@ -65,21 +65,31 @@ const GuideInfo = ({ route }) => {
                             </G>
                         </Svg>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Home")}>    
+                        <Svg fill="#ffffff" marginLeft={10} width={30} height={30} viewBox="0 0 512 512" id="_x30_1" version="1.1" stroke="#ffffff">
+                            <G id="SVGRepo_bgCarrier" stroke-width="0"/>
+                            <G id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                            <G id="SVGRepo_iconCarrier"> 
+                                <G> 
+                                    <Path d="M256,0C114.615,0,0,114.615,0,256s114.615,256,256,256s256-114.615,256-256S397.385,0,256,0z M404.861,263.236 L404.861,263.236c-7.297,7.297-18.066,8.993-26.986,5.104v97.098c0,20.193-16.37,36.562-36.562,36.562H170.688 c-20.193,0-36.562-16.37-36.562-36.562v-97.098c-8.919,3.89-19.689,2.193-26.986-5.104c-9.519-9.519-9.519-24.952,0-34.471 L238.764,97.139h0c9.519-9.519,24.952-9.519,34.471,0l131.625,131.625C414.38,238.283,414.38,253.717,404.861,263.236z"/> 
+                                    <Path d="M286.469,267.938h-60.938c-6.731,0-12.188,5.457-12.188,12.188v73.125c0,6.731,5.457,12.188,12.188,12.188h60.938 c6.731,0,12.188-5.457,12.188-12.188v-73.125C298.656,273.394,293.2,267.938,286.469,267.938z"/>
+                                </G> 
+                            </G>
+                        </Svg>
+                    </TouchableOpacity>
                 </SafeAreaView>
-                <Text style={styles.guideTitle}>{guide.guideName}</Text>
+                <Text allowFontScaling={false} style={styles.guideTitle}>{guide.guideName}</Text>
                 <SafeAreaView style={styles.containerVideo}>
                     <YoutubePlayer
-                        height={Dimensions.get('window').height - 430}
-                        width={Dimensions.get('window').width - 60}
-                        //height={150}
-                        //width={300}
+                        height={"100%"}
+                        width={"100%"}
                         play={false}
                         videoId={idVideo}
                     />
                 </SafeAreaView>
                 <SafeAreaView style={styles.containerGuide}>
-                    <ScrollView>
-                        <Text style={styles.guideText}>{guide.guide}</Text>
+                    <ScrollView keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
+                        <Text allowFontScaling={false} style={styles.guideText}>{guide.guide}</Text>
                     </ScrollView>
                 </SafeAreaView>
             </SafeAreaView>
@@ -99,7 +109,8 @@ const styles = StyleSheet.create({
         margin: 30,
     },
     buttons: {
-        marginTop: 10,
+        flexDirection: 'row',
+        marginTop: Platform.OS === 'android' ? 10 : 25,
         marginBottom: Platform.OS === 'android' ? 30 : 40,
     },
     guideTitle: {
@@ -107,16 +118,27 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         textAlign: "center",
         fontSize: Dimensions.get('window').width/25,
+        marginBottom: Platform.OS === 'android' ? 5 : 10,
     },
     containerVideo: {
         alignItems: "center",
         justifyContent: "center",
+        height: Dimensions.get('window').width/2.13,
+        marginBottom: Platform.OS === 'android' ? 10 : 15,
+        shadowColor: "#000",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.25,
+        shadowRadius: 2.5,
+        elevation: 8, //Per ombra Android
     },
     guideText: {
         fontFamily: 'Satoshi-Bold',
-        textAlign: "center",
+        marginLeft: 3,
         fontSize: Dimensions.get('window').width/28,
-    }
+    },
+    containerGuide: {
+        flex: 1,
+    },
 })
 
 export default GuideInfo;
