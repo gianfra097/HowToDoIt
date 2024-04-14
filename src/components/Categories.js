@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, Text, Image, Dimensions, TouchableOpacity} from 'react-native'
-import { supabase } from '../lib/supabase'
 import { useNavigation } from '@react-navigation/native';
 import GuidesPage from '../pages/GuidesPage'
 
-const Categories = () => {
+const Categories = ({ allCategories }) => {
 
     const navigation = useNavigation();
-    const [allCategories, setAllCategories] = useState([])
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const {data, error} = await supabase.from("Categories").select('*')
-
-            if(error){
-                console.log(error)
-            } else {
-                setAllCategories(data)
-            }
-        }
-        fetchCategories()
-    }, [])
    
     return (
         <SafeAreaView style={styles.container}>

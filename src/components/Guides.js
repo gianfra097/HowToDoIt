@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 4, height: 3 },
         shadowOpacity: 0.15,
         shadowRadius: 2.5,
-        elevation: 5, //Per ombra Android
+        elevation: 3, //Per ombra Android
     },
     containerCircle: {
         justifyContent: "center",

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, FlatList, TouchableOpacity, Modal, Dimensions} from 'react-native'
+import { StyleSheet, SafeAreaView, Text, BackHandler, Image, ImageBackground, FlatList, TouchableOpacity, Modal, Dimensions, View} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useIsFocused } from '@react-navigation/native';
 import SearchBar from '../src/components/SearchBar';
 import Categories from '../src/components/Categories';
 import Svg, { Path, G } from 'react-native-svg';
+import { supabase } from '../src/lib/supabase';
 
 const { width } = Dimensions.get('window')
 
@@ -23,7 +24,24 @@ const Home = ({ navigation }) => {
         return () => backHandler.remove();
     }, []);
 
-    const [isModalVisible, setIsModalVisible] = useState(false); //Per popup Modal
+    //Recupero le categories dal db e inserisco i dati dentro allCategories che invierò a SearchBar e Categories
+    //Con la searchbar posso gestire la ricerca in tempo reale e con Categories vado a mostrare a schermo le categorie
+    const [allCategories, setAllCategories] = useState([])
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const {data, error} = await supabase.from("Categories").select('*')
+
+            if(error){
+                console.log(error)
+            } else {
+                setAllCategories(data)
+            }
+        }
+        fetchCategories()
+    }, [])
+
+    //Per popup (info versione, developerd, ecc) da usare nel Modal
+    const [isModalVisible, setIsModalVisible] = useState(false); 
 
     return (
         <ImageBackground source={require('../src/assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
@@ -35,7 +53,7 @@ const Home = ({ navigation }) => {
                                 <SafeAreaView>   
                                     <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
                                     <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
-                                    <SearchBar/>
+                                    <SearchBar allCategories={allCategories}/>
                                     <SafeAreaView style={styles.shadowContainer}>
                                         <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.6, y:1}} end={{x: 1, y: 0.7}}>
                                             <Text allowFontScaling={false} style={styles.textExplore}> Esplora le guide, {'\n'} libera il tuo potenziale </Text>
@@ -44,7 +62,7 @@ const Home = ({ navigation }) => {
                                     </SafeAreaView>
                                     <SafeAreaView style={styles.categoriesContainer}>
                                         <Text allowFontScaling={false} style={styles.textCategories}>Categorie:</Text>
-                                        <Categories/>
+                                        <Categories allCategories={allCategories}/>
                                     </SafeAreaView>
                                     <SafeAreaView style={styles.infoContainer}>
                                         <TouchableOpacity onPress={() => setIsModalVisible(true)}>
@@ -113,8 +131,9 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.15,
         shadowRadius: 2.5,
-        elevation: 4, //Per ombra Android
+        //elevation: 4, //Per ombra Android
         marginLeft: Platform.OS === 'android' ? 1 : 0,
+        zIndex: -1
     },
     rectangle: {
         height: Dimensions.get('window').height/6.9,
@@ -123,6 +142,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        elevation: 4, //Per ombra Android
     },
     textExplore: {
         fontSize: width / 21,
@@ -132,12 +152,13 @@ const styles = StyleSheet.create({
     brainImage: {
         flex: 1,
         resizeMode: 'cover',
-        height: Dimensions.get('window').height/10,  //Per migliorare risoluzione su altri dispositivi
+        height: Dimensions.get('window').height/9,  //Per migliorare risoluzione su altri dispositivi
         marginRight: 5,
     },
     categoriesContainer: {
         flex: 1,
         marginTop: 15,
+        zIndex: -1
     },
     textCategories: {
         fontSize: width / 15,
@@ -146,7 +167,7 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         flex: 1,
-        margin: 20,        
+        margin: 20,
     },
     modalContainer: {
         flex: 1,

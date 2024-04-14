@@ -1,32 +1,39 @@
 import React, { useState } from 'react'
-import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard } from "react-native";
+import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard, Text, ScrollView } from "react-native";
 import Svg, { Path, G } from 'react-native-svg';
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-const SearchBar = () => {
+const SearchBar = ({ allCategories }) => {
 
     const [isTextInputOpen, setTextInputIsOpen] = useState(false);
     const [textOnSearchBar, setTextOnSearchBar] = useState("");
 
-    const deleteText = () => {  //Se X viene cliccata
+    //Se viene cliccata la X nella barra di ricerca
+    const deleteText = () => {  
         setTextInputIsOpen(false);  //Togli la X
         Keyboard.dismiss();  //Chiudi tastiera
         setTextOnSearchBar(""); //Svuota barra di ricerca
     }
 
+    //Se viene inserito del testo, controlla che esista una categoria o guida
+    if(textOnSearchBar){
+        
+    }
+
     return (
-        <SafeAreaView style={styles.searchContainerShadow}>
-            <SafeAreaView style={styles.safeAreaSearchbar}>
+
+        <SafeAreaView style={styles.container}>
+            <View style={[ isTextInputOpen && textOnSearchBar ? styles.resultsSearchBar : styles.searchContainerShadow]}>
+                
                 <View style={styles.searchBarContainer}>
                     <Image style={styles.searchImage} source={require('../assets/images/searchBar.png')}/>
                     <TextInput 
                         value={textOnSearchBar}
                         onChangeText={(text) => setTextOnSearchBar(text)}
-                        onFocus={() => 
-                        setTextInputIsOpen(true)} 
-                        onBlur={() => setTextInputIsOpen(false)} 
+                        onFocus={() => setTextInputIsOpen(true)} 
+                        //onBlur={() => setTextInputIsOpen(false)} 
                         placeholder="Cerca..." 
                         allowFontScaling={false}
                         style={styles.searchBarInput}/>
@@ -41,29 +48,56 @@ const SearchBar = () => {
                         </Svg>
                     </TouchableOpacity>}
                 </View>
-            </SafeAreaView>
+
+
+                {textOnSearchBar && isTextInputOpen &&(
+                    <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps='handled' style={styles.resultsScrollView}>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                    </ScrollView>
+                )}
+
+            </View>
         </SafeAreaView>
-    )
+
+        )
 }
 
 export default SearchBar;
 
 const styles = StyleSheet.create({
+    container: {
+        margin: 2,
+        borderRadius: 15,
+        height: Dimensions.get('window').height/20,
+    },
+    resultsSearchBar: {
+        position: "absolute",
+        top: 0,
+        left: 0, 
+        right: 0,
+        backgroundColor: "#f8f8f8",
+        maxHeight: Dimensions.get('window').height/4,
+        marginBottom: 10,
+        borderRadius: 15,
+        zIndex: 1, //Per fare in modo che il container grigio sia visibile sopra gli altri elementi
+    },
     searchContainerShadow: {
-        backgroundColor: "white",
+        backgroundColor: "#f8f8f8",
         borderRadius: 15,
         height: Dimensions.get('window').height/20,
         shadowColor: "#000",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.08,
+        shadowOffset: { width: 3, height: 5 },
+        shadowOpacity: 0.1,
         shadowRadius: 2,
         elevation: 3, //Per ombra Android
         marginBottom: 5, //Margin per visualizzare ombra in basso
-        marginHorizontal: 5, //Margin per evitare che venga tagliata l'ombra nell'angolo destro
-        
-    },
-    safeAreaSearchbar: {
-        flex: 1,
     },
     searchBarContainer: {
         flexDirection: 'row',
@@ -73,17 +107,27 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height/20,
     },
     searchImage: {
-        height: "80%",
+        height: Platform.OS === 'android' ? "70%" : "60%",
         width: "10%",
         resizeMode: "contain",
         marginLeft: 10,
     },
     searchBarInput: {
         marginLeft: 8,
+        fontFamily: 'Satoshi-Bold',
         fontSize: width / 25,
         flex: 1,
     },
     containerX: {
         marginRight: 5,
+    },
+    resultsScrollView: {
+        marginTop: 15,
+        marginBottom: 10,
+        marginLeft: 10,
+    },
+    resultsTest: {
+        fontSize: width / 24,
+        fontFamily: 'Satoshi-Bold',
     }
 });
