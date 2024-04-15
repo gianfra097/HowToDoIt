@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, Text, Image, Dimensions, TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import FetchAllCategories from '../lib/FetchAllCategories';
 import GuidesPage from '../pages/GuidesPage'
 
-const Categories = ({ allCategories }) => {
+const Categories = () => {
 
     const navigation = useNavigation();
+
+    //Recupero i dati delle Guide
+    const allCategories = FetchAllCategories();
    
     return (
         <SafeAreaView style={styles.container}>

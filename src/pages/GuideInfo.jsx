@@ -2,31 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground, FlatList, TouchableOpacity, ScrollView } from "react-native"
 import Svg, { Path, G } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
-import { supabase } from '../lib/supabase'
 import YoutubePlayer from 'react-native-youtube-iframe';
+import FetchGuideFromId from '../lib/FetchGuideFromId';
 
 const { width } = Dimensions.get('window')
 
 const GuideInfo = ({ route }) => {
 
     const navigation = useNavigation();
+
     const clickedGuideID = route.params.clickedGuideID;
-    const [guide, setGuide] = useState([]);
+
+    //Recupero la guida in base alla categoria cliccata
+    const guide = FetchGuideFromId(clickedGuideID);
+
     const [idVideo, setIdVideo] = useState("");
-
-    useEffect(() => {
-        const fetchGuide = async () => {
-            const {data, error} = await supabase.from("Guides").select('*').eq('id', clickedGuideID)
-
-            if(error){
-                console.log(error)
-            } else {
-                setGuide(data[0])
-            }
-        }
-        fetchGuide()
-
-    }, [])
 
     //Quando guide viene aggiornata (in questo caso popolata) richiama la funzione readIdVideo
     useEffect(() => {

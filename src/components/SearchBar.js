@@ -1,25 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard, Text, ScrollView } from "react-native";
 import Svg, { Path, G } from 'react-native-svg';
 import { Dimensions } from 'react-native';
+import FetchAllGuides from '../lib/FetchAllGuides';
 
 const { width } = Dimensions.get('window')
 
-const SearchBar = ({ allCategories }) => {
+const SearchBar = ({ searchResultsVisible, setIsSearchResultsVisible }) => {
+
+    //Recupero i dati delle Guide
+    const allGuides = FetchAllGuides();
 
     const [isTextInputOpen, setTextInputIsOpen] = useState(false);
     const [textOnSearchBar, setTextOnSearchBar] = useState("");
+    const [results, setResults] = useState([]);
+
+    //Tolgo la tastiera quando viene cliccato un punto esterno alla searchbar (oltre a togliere i risultati)
+    //useEffect che si modifica ogni volta che varia searchResultsVisible (true o false), quindi quando è visibile il risultato della ricerca
+    useEffect(() => {
+        if (!searchResultsVisible) {
+            setTextInputIsOpen(false);
+            Keyboard.dismiss();
+        }
+    }, [searchResultsVisible]);
+
+    //Se viene inserito del testo, controlla che esista una delle guida
+    useEffect(() => {
+        if (textOnSearchBar && allGuides.length > 0) {
+            const filteredResults = [];
+            allGuides.map((guide, index) => {
+                if(guide.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
+                    filteredResults.push(guide.guideName);
+                }
+            });
+            if(filteredResults.length === 0){
+                filteredResults.push("Nessun risultato trovato");
+            }
+            setResults(filteredResults);
+        } else {
+            setResults([]);
+        }
+    }, [textOnSearchBar]);
 
     //Se viene cliccata la X nella barra di ricerca
     const deleteText = () => {  
         setTextInputIsOpen(false);  //Togli la X
         Keyboard.dismiss();  //Chiudi tastiera
         setTextOnSearchBar(""); //Svuota barra di ricerca
-    }
-
-    //Se viene inserito del testo, controlla che esista una categoria o guida
-    if(textOnSearchBar){
-        
     }
 
     return (
@@ -32,12 +59,12 @@ const SearchBar = ({ allCategories }) => {
                     <TextInput 
                         value={textOnSearchBar}
                         onChangeText={(text) => setTextOnSearchBar(text)}
-                        onFocus={() => setTextInputIsOpen(true)} 
+                        onFocus={() => {setTextInputIsOpen(true); setIsSearchResultsVisible(true)}} 
                         //onBlur={() => setTextInputIsOpen(false)} 
                         placeholder="Cerca..." 
                         allowFontScaling={false}
                         style={styles.searchBarInput}/>
-                        {isTextInputOpen && 
+                        {textOnSearchBar && 
                     <TouchableOpacity style={styles.containerX} onPress={deleteText}>
                         <Svg fill="#50d4c3" width="30px" height="30px" viewBox="-3.2 -3.2 38.40 38.40" version="1.1" xmlns="http://www.w3.org/2000/svg">
                             <G id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -50,16 +77,11 @@ const SearchBar = ({ allCategories }) => {
                 </View>
 
 
-                {textOnSearchBar && isTextInputOpen &&(
+                {textOnSearchBar && isTextInputOpen && searchResultsVisible &&(
                     <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps='handled' style={styles.resultsScrollView}>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
-                        <Text allowFontScaling={false} style={styles.resultsTest}>Risultati della ricerca...</Text>
+                        {results.map((result, index) => (
+                            <Text key={index} allowFontScaling={false} style={styles.resultsList}>{result}</Text>
+                        ))}
                     </ScrollView>
                 )}
 
@@ -126,8 +148,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 10,
     },
-    resultsTest: {
+    resultsList: {
         fontSize: width / 24,
         fontFamily: 'Satoshi-Bold',
+        marginLeft: 5,
     }
 });

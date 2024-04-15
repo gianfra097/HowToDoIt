@@ -2,27 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, Text, Dimensions, TouchableOpacity} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, G } from 'react-native-svg';
-import { supabase } from '../lib/supabase'
 import { useNavigation } from '@react-navigation/native';
+import FetchGuidesFromCategory from '../lib/FetchGuidesFromCategory';
 import GuideInfo from '../pages/GuideInfo';
 
 const Guides = ({ categoryID }) => {
 
     const navigation = useNavigation();
-    const [allGuides, setAllGuides] = useState([])
-
-    useEffect(() => {
-        const fetchGuides = async () => {
-            const {data, error} = await supabase.from("Guides").select('*').eq('categoryID', categoryID)
-
-            if(error){
-                console.log(error)
-            } else {
-                setAllGuides(data)
-            }
-        }
-        fetchGuides()
-    }, [])
+    
+    //Recupero le guide in base alla categoria cliccata
+    const allGuides = FetchGuidesFromCategory(categoryID);
    
     return (
         <SafeAreaView style={styles.container}>
