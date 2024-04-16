@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         height: Dimensions.get('window').width/2.13,
         marginBottom: Platform.OS === 'android' ? 10 : 15,
+        backgroundColor: "white",
         shadowColor: "#000",
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.25,

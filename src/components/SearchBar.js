@@ -3,13 +3,17 @@ import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Key
 import Svg, { Path, G } from 'react-native-svg';
 import { Dimensions } from 'react-native';
 import FetchAllGuides from '../lib/FetchAllGuides';
+import FetchGuidesFromCategory from '../lib/FetchGuidesFromCategory';
 
 const { width } = Dimensions.get('window')
 
-const SearchBar = ({ searchResultsVisible, setIsSearchResultsVisible }) => {
+const SearchBar = ({ page, categoryID = null, searchResultsVisible, setIsSearchResultsVisible }) => {
 
-    //Recupero i dati delle Guide
+    //Recupero i dati di tutte le Guide
     const allGuides = FetchAllGuides();
+
+    //Recupero i dati delle guide per id passato
+    const allGuidesFromId = FetchGuidesFromCategory(categoryID);
 
     const [isTextInputOpen, setTextInputIsOpen] = useState(false);
     const [textOnSearchBar, setTextOnSearchBar] = useState("");
@@ -24,21 +28,37 @@ const SearchBar = ({ searchResultsVisible, setIsSearchResultsVisible }) => {
         }
     }, [searchResultsVisible]);
 
-    //Se viene inserito del testo, controlla che esista una delle guida
+    //Se viene inserito del testo, controlla la pagina in cui ci troviamo ed effettua ricerca dedicata
     useEffect(() => {
-        if (textOnSearchBar && allGuides.length > 0) {
-            const filteredResults = [];
-            allGuides.map((guide, index) => {
-                if(guide.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
-                    filteredResults.push(guide.guideName);
+        const filteredResults = [];
+        if (page === "Home"){
+            if (textOnSearchBar && allGuides.length > 0) {
+                allGuides.map((guide, index) => {
+                    if(guide.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
+                        filteredResults.push(guide.guideName);
+                    }
+                });
+                if(filteredResults.length === 0){
+                    filteredResults.push("Nessun risultato trovato");
                 }
-            });
-            if(filteredResults.length === 0){
-                filteredResults.push("Nessun risultato trovato");
+                setResults(filteredResults);
+            } else {
+                setResults([]);
             }
-            setResults(filteredResults);
-        } else {
-            setResults([]);
+        } else if (page === "GuidesPage"){
+            if (textOnSearchBar && allGuidesFromId) {
+                allGuidesFromId.map((guidesFromId, index) => {
+                    if(guidesFromId.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
+                        filteredResults.push(guidesFromId.guideName);
+                    }
+                });
+                if(filteredResults.length === 0){
+                    filteredResults.push("Nessun risultato trovato");
+                }
+                setResults(filteredResults);
+            } else {
+                setResults([]);
+            }
         }
     }, [textOnSearchBar]);
 
@@ -80,7 +100,7 @@ const SearchBar = ({ searchResultsVisible, setIsSearchResultsVisible }) => {
                 {textOnSearchBar && isTextInputOpen && searchResultsVisible &&(
                     <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps='handled' style={styles.resultsScrollView}>
                         {results.map((result, index) => (
-                            <Text key={index} allowFontScaling={false} style={styles.resultsList}>{result}</Text>
+                            <Text key={index} allowFontScaling={false} style={styles.resultsList}>- {result}</Text>
                         ))}
                     </ScrollView>
                 )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground, FlatList, TouchableOpacity, View } from "react-native"
 import Svg, { Path, G } from 'react-native-svg';
 import SearchBar from '../components/SearchBar';
@@ -11,14 +11,21 @@ const GuidesPage = ({ navigation, route }) => {
     const clickedCategory = route.params.clickedCategory;
     const categoryID = route.params.categoryID;
 
+    //Serve per utilizzare la searchbar in modo personalizzato se l'utente si trova nella GuidesPage
+    const page = "GuidesPage";
+
+    //Per chiudere i risultati della searchBar quando l'utente clicca al di fuori di essi
+    const [searchResultsVisible, setIsSearchResultsVisible] = useState(true);
+
     return(
-        <ImageBackground source={require('../assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/images/wallpaperHome.png')} style={styles.backgroundImage} onTouchStart={() => setIsSearchResultsVisible(false)}>
             
             <SafeAreaView style={styles.container}>  
             
             {/*Serve per nascondere le guide dietro la barra di ricerca quando ci sono i risultati*/}
                 <View style={{flex: 1, zIndex: 1}}>
 
+                    <TouchableOpacity activeOpacity={1} onPress={() => {setIsSearchResultsVisible(false)}}>
                     <View style={styles.backArrow}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
                             <Svg fill="#ffffff" width={25} height={25} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="#ffffff">
@@ -34,22 +41,25 @@ const GuidesPage = ({ navigation, route }) => {
                             </Svg>
                         </TouchableOpacity>
                     </View>
+                    </TouchableOpacity>
 
-                    <SearchBar/>
+                    <SearchBar page={page} categoryID={categoryID} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
 
-                    <SafeAreaView style={styles.spaceContainer}/>
+                    <TouchableOpacity activeOpacity={1} style={{flex: 1, zIndex: -1}} onPress={() => {setIsSearchResultsVisible(false)}}>
+                        <SafeAreaView style={styles.spaceContainer}/>
 
-                    <View style={styles.guidesContainer}>
-                        <Text allowFontScaling={false} style={styles.clickedCategory}>{clickedCategory}</Text>
-                        <FlatList keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false} data={['guidesComponents']} renderItem={({ item }) => {
-                            switch (item) {
-                                case 'guidesComponents':
-                                    return (
-                                        <Guides categoryID={categoryID}/>
-                                    );
-                            }
-                        }}/>
-                    </View>
+                        <View style={styles.guidesContainer}>
+                            <Text allowFontScaling={false} style={styles.clickedCategory}>{clickedCategory}</Text>
+                            <FlatList keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false} data={['guidesComponents']} renderItem={({ item }) => {
+                                switch (item) {
+                                    case 'guidesComponents':
+                                        return (
+                                            <Guides categoryID={categoryID}/>
+                                        );
+                                }
+                            }}/>
+                        </View>
+                    </TouchableOpacity>
                     
                 </View>
             

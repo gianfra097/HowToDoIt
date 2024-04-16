@@ -23,6 +23,9 @@ const Home = ({ navigation }) => {
         return () => backHandler.remove();
     }, []);
 
+    //Serve per utilizzare la searchbar in modo personalizzato se l'utente si trova nella home
+    const page = "Home";
+
     //Per chiudere i risultati della searchBar quando l'utente clicca al di fuori di essi
     const [searchResultsVisible, setIsSearchResultsVisible] = useState(true);
 
@@ -41,7 +44,7 @@ const Home = ({ navigation }) => {
                                         <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
                                         <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
                                     </TouchableOpacity>
-                                    <SearchBar searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
+                                    <SearchBar page={page} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
                                     <TouchableOpacity activeOpacity={1} style={{flex: 1, zIndex: -1}} onPress={() => {setIsSearchResultsVisible(false)}}>
                                         <SafeAreaView style={styles.shadowContainer}>
                                             <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.6, y:1}} end={{x: 1, y: 0.7}}>
