@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard, Text, ScrollView } from "react-native";
-import Svg, { Path, G } from 'react-native-svg';
+import Svg, { Path, G, Line } from 'react-native-svg';
 import { Dimensions } from 'react-native';
 import FetchAllGuides from '../lib/FetchAllGuides';
 import FetchGuidesFromCategory from '../lib/FetchGuidesFromCategory';
@@ -100,7 +100,10 @@ const SearchBar = ({ page, categoryID = null, searchResultsVisible, setIsSearchR
                 {textOnSearchBar && isTextInputOpen && searchResultsVisible &&(
                     <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps='handled' style={styles.resultsScrollView}>
                         {results.map((result, index) => (
-                            <Text key={index} allowFontScaling={false} style={styles.resultsList}>- {result}</Text>
+                            <>
+                            <View style={{backgroundColor: "#EBE9E9", height: 2}}/>
+                            <Text key={index} allowFontScaling={false} style={styles.resultsList}>• {result}</Text>
+                            </>
                         ))}
                     </ScrollView>
                 )}
@@ -165,12 +168,14 @@ const styles = StyleSheet.create({
     },
     resultsScrollView: {
         marginTop: 15,
-        marginBottom: 10,
         marginLeft: 10,
+        marginRight: 10,
     },
     resultsList: {
         fontSize: width / 24,
         fontFamily: 'Satoshi-Bold',
         marginLeft: 5,
+        marginTop: 5,
+        marginBottom: 5
     }
 });
