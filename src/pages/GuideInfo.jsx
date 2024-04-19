@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground, FlatList, TouchableOpacity, ScrollView } from "react-native"
+import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground, TouchableOpacity, ScrollView, ActivityIndicator, View } from "react-native"
 import Svg, { Path, G } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import YoutubePlayer from 'react-native-youtube-iframe';
@@ -38,6 +38,12 @@ const GuideInfo = ({ route }) => {
        setIdVideo(extractIdVideo)
     }
 
+    //Timeout per spinner video
+    const [isLoading, setIsLoading] = useState(true);
+    const handleReady = () => {
+        setIsLoading(false);
+    };
+
     return(
         <ImageBackground source={require('../assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}>
@@ -70,12 +76,13 @@ const GuideInfo = ({ route }) => {
                 </SafeAreaView>
                 <Text allowFontScaling={false} style={styles.guideTitle}>{guide.guideName}</Text>
                 <SafeAreaView style={styles.containerVideo}>
+                    {isLoading ? (<View style={styles.loading}><ActivityIndicator size="large"/></View>) : (null)}
                     <YoutubePlayer
                         height={"100%"}
                         width={"100%"}
                         play={false}
                         videoId={idVideo}
-                    />
+                        onReady={handleReady}/>
                 </SafeAreaView>
                 <SafeAreaView style={styles.containerGuide}>
                     <ScrollView keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
@@ -129,6 +136,14 @@ const styles = StyleSheet.create({
     },
     containerGuide: {
         flex: 1,
+    },
+    loading: {
+        position: "absolute",
+        top: 0,
+        right: 0, 
+        left: 0,
+        height: Dimensions.get('window').width/2.13,
+        justifyContent: "center"
     },
 })
 
