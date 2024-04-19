@@ -2,18 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard, Text, ScrollView } from "react-native";
 import Svg, { Path, G, Line } from 'react-native-svg';
 import { Dimensions } from 'react-native';
-import FetchAllGuides from '../lib/FetchAllGuides';
-import FetchGuidesFromCategory from '../lib/FetchGuidesFromCategory';
 
 const { width } = Dimensions.get('window')
 
-const SearchBar = ({ page, categoryID = null, searchResultsVisible, setIsSearchResultsVisible }) => {
-
-    //Recupero i dati di tutte le Guide
-    const allGuides = FetchAllGuides();
-
-    //Recupero i dati delle guide per id passato
-    const allGuidesFromId = FetchGuidesFromCategory(categoryID);
+const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) => {
 
     const [isTextInputOpen, setTextInputIsOpen] = useState(false);
     const [textOnSearchBar, setTextOnSearchBar] = useState("");
@@ -31,35 +23,20 @@ const SearchBar = ({ page, categoryID = null, searchResultsVisible, setIsSearchR
     //Se viene inserito del testo, controlla la pagina in cui ci troviamo ed effettua ricerca dedicata
     useEffect(() => {
         const filteredResults = [];
-        if (page === "Home"){
-            if (textOnSearchBar && allGuides.length > 0) {
-                allGuides.map((guide, index) => {
-                    if(guide.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
-                        filteredResults.push(guide.guideName);
-                    }
-                });
-                if(filteredResults.length === 0){
-                    filteredResults.push("Nessun risultato trovato");
+        if (textOnSearchBar && data.length > 0) {
+            data.map((guide, index) => {
+                if(guide.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
+                    filteredResults.push(guide.guideName);
                 }
-                setResults(filteredResults);
-            } else {
-                setResults([]);
+            });
+            if(filteredResults.length === 0){
+                filteredResults.push("Nessun risultato trovato");
             }
-        } else if (page === "GuidesPage"){
-            if (textOnSearchBar && allGuidesFromId) {
-                allGuidesFromId.map((guidesFromId, index) => {
-                    if(guidesFromId.guideName.toLowerCase().startsWith(textOnSearchBar.toLowerCase())){
-                        filteredResults.push(guidesFromId.guideName);
-                    }
-                });
-                if(filteredResults.length === 0){
-                    filteredResults.push("Nessun risultato trovato");
-                }
-                setResults(filteredResults);
-            } else {
-                setResults([]);
-            }
+            setResults(filteredResults);
+        } else {
+            setResults([]);
         }
+        //if (textOnSearchBar && allGuidesFromId) {
     }, [textOnSearchBar]);
 
     //Se viene cliccata la X nella barra di ricerca
@@ -100,10 +77,10 @@ const SearchBar = ({ page, categoryID = null, searchResultsVisible, setIsSearchR
                 {textOnSearchBar && isTextInputOpen && searchResultsVisible &&(
                     <ScrollView nestedScrollEnabled={true} keyboardShouldPersistTaps='handled' style={styles.resultsScrollView}>
                         {results.map((result, index) => (
-                            <>
+                            <View key={index}>
                             <View style={{backgroundColor: "#EBE9E9", height: 2}}/>
                             <Text key={index} allowFontScaling={false} style={styles.resultsList}>• {result}</Text>
-                            </>
+                            </View>
                         ))}
                     </ScrollView>
                 )}

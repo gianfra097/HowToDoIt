@@ -8,19 +8,22 @@ const FetchAllGuides = () => {
     const [allGuides, setAllGuides] = useState([])
     useEffect(() => {
         const fetchGuides = async () => {
-            const {data, error} = await supabase.from("Guides").select('*')
+            try {
+                const { data, error } = await supabase.from("Guides").select('*');
 
-            if(error){
-                console.log(error)
-            } else {
-                setAllGuides(data)
+                if (error) {
+                    console.error(error);
+                } else {
+                    setAllGuides(data);
+                }
+            } catch (error) {
+                console.error('Errore durante il recupero delle guide:', error);
             }
-        }
-        fetchGuides()
-    }, [])
+        };
+        fetchGuides();
+    }, []);
 
-    return allGuides
-
-}
+    return allGuides;
+};
 
 export default FetchAllGuides;

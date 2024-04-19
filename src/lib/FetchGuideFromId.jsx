@@ -8,16 +8,19 @@ const FetchGuideFromId = (clickedGuideID) => {
     const [guide, setGuide] = useState([]);
     useEffect(() => {
         const fetchGuide = async () => {
-            const {data, error} = await supabase.from("Guides").select('*').eq('id', clickedGuideID)
+            try {
+                const {data, error} = await supabase.from("Guides").select('*').eq('id', clickedGuideID)
 
-            if(error){
-                console.log(error)
-            } else {
-                setGuide(data[0])
+                if(error){
+                    console.log(error)
+                } else {
+                    setGuide(data[0])
+                }
+            } catch (error) {
+                console.error('Errore durante il recupero delle guide tramite ID', error);
             }
-        }
+        };
         fetchGuide()
-
     }, [])
 
     return guide

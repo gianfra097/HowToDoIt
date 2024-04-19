@@ -8,14 +8,18 @@ const FetchAllCategories = () => {
     const [allCategories, setAllCategories] = useState([])
     useEffect(() => {
         const fetchCategories = async () => {
-            const {data, error} = await supabase.from("Categories").select('*')
+            try {
+                const {data, error} = await supabase.from("Categories").select('*')
 
-            if(error){
-                console.log(error)
-            } else {
-                setAllCategories(data)
+                if(error){
+                    console.log(error)
+                } else {
+                    setAllCategories(data)
+                }
+            } catch (error) {
+                console.error('Errore durante il recupero delle categorie', error);
             }
-        }
+        };
         fetchCategories()
     }, [])
 

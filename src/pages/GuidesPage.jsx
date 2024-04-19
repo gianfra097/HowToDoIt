@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Text, Dimensions, ImageBackground, FlatList, 
 import Svg, { Path, G } from 'react-native-svg';
 import SearchBar from '../components/SearchBar';
 import Guides from '../components/Guides';
+import FetchGuidesFromCategory from '../lib/FetchGuidesFromCategory';
 
 const { width } = Dimensions.get('window')
 
@@ -11,8 +12,8 @@ const GuidesPage = ({ navigation, route }) => {
     const clickedCategory = route.params.clickedCategory;
     const categoryID = route.params.categoryID;
 
-    //Serve per utilizzare la searchbar in modo personalizzato se l'utente si trova nella GuidesPage
-    const page = "GuidesPage";
+    //Recupero i dati delle guide per id passato e li passo alla SearchBar che su GuidesPage filtra queste guide
+    const allGuidesFromId = FetchGuidesFromCategory(categoryID);
 
     //Per chiudere i risultati della searchBar quando l'utente clicca al di fuori di essi
     const [searchResultsVisible, setIsSearchResultsVisible] = useState(true);
@@ -43,7 +44,7 @@ const GuidesPage = ({ navigation, route }) => {
                     </View>
                     </TouchableOpacity>
 
-                    <SearchBar page={page} categoryID={categoryID} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
+                    <SearchBar data={allGuidesFromId} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
 
                     <TouchableOpacity activeOpacity={1} style={{flex: 1, zIndex: -1}} onPress={() => {setIsSearchResultsVisible(false)}}>
                         <SafeAreaView style={styles.spaceContainer}/>
