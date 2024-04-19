@@ -5,7 +5,7 @@ import { useIsFocused } from '@react-navigation/native';
 import SearchBar from '../src/components/SearchBar';
 import Categories from '../src/components/Categories';
 import Svg, { Path, G } from 'react-native-svg';
-import FetchAllGuides from '../src/lib/FetchAllGuides';
+import FetchAllGuidesNamesAndIds from '../src/lib/FetchAllGuidesNamesAndIds';
 
 const { width } = Dimensions.get('window')
 
@@ -24,8 +24,8 @@ const Home = ({ navigation }) => {
         return () => backHandler.remove();
     }, []);
 
-    //Recupero i dati di tutte le guide dal db per poi passarle alla SearchBar che sulla Home deve filtrare tutti i dati
-    const allGuides = FetchAllGuides();
+    //Recupero i nomi e gli id di tutte le guide dal db e li passo alla SearchBar che sulla Home deve filtrare tutti i dati
+    const allGuidesNamesAndIds = FetchAllGuidesNamesAndIds();
 
     //Per chiudere i risultati della searchBar quando l'utente clicca al di fuori di essi
     const [searchResultsVisible, setIsSearchResultsVisible] = useState(true);
@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
                                         <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
                                         <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
                                     </TouchableOpacity>
-                                    <SearchBar data={allGuides} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
+                                    <SearchBar data={allGuidesNamesAndIds} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
                                     <TouchableOpacity activeOpacity={1} style={{flex: 1, zIndex: -1}} onPress={() => {setIsSearchResultsVisible(false)}}>
                                         <SafeAreaView style={styles.shadowContainer}>
                                             <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.6, y:1}} end={{x: 1, y: 0.7}}>

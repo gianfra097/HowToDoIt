@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, TextInput, Image, StyleSheet, SafeAreaView, TouchableOpacity, Keyboard, Text, ScrollView } from "react-native";
 import Svg, { Path, G, Line } from 'react-native-svg';
 import { Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window')
 
@@ -10,6 +11,7 @@ const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) =>
     const [isTextInputOpen, setTextInputIsOpen] = useState(false);
     const [textOnSearchBar, setTextOnSearchBar] = useState("");
     const [results, setResults] = useState([]);
+    const navigation = useNavigation();
 
     //Tolgo la tastiera quando viene cliccato un punto esterno alla searchbar (oltre a togliere i risultati)
     //useEffect che si modifica ogni volta che varia searchResultsVisible (true o false), quindi quando è visibile il risultato della ricerca
@@ -46,6 +48,16 @@ const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) =>
         setTextOnSearchBar(""); //Svuota barra di ricerca
     }
 
+    //Se viene cliccato un risultato della SearchBar
+    const goToGuide = (result) => {
+        data.map((guide, index) => {
+            if(guide.guideName === result){ //Se il nome della guida è uguale alla stringa risultato cliccata
+                navigation.navigate("GuideInfo", {clickedGuideID: guide.id})  //Spedisci l'utente alla pagina con la guida dedicata
+                setTextOnSearchBar(""); //Svuota barra di ricerca
+            }
+        })
+    }
+
     return (
 
         <SafeAreaView style={styles.container}>
@@ -79,7 +91,9 @@ const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) =>
                         {results.map((result, index) => (
                             <View key={index}>
                             <View style={{backgroundColor: "#EBE9E9", height: 2}}/>
-                            <Text key={index} allowFontScaling={false} style={styles.resultsList}>• {result}</Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => goToGuide(result)}>
+                                <Text key={index} allowFontScaling={false} style={styles.resultsList}>• {result}</Text>
+                            </TouchableOpacity>
                             </View>
                         ))}
                     </ScrollView>
