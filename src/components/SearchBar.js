@@ -54,6 +54,7 @@ const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) =>
             if(guide.guideName === result){ //Se il nome della guida è uguale alla stringa risultato cliccata
                 navigation.navigate("GuideInfo", {clickedGuideID: guide.id})  //Spedisci l'utente alla pagina con la guida dedicata
                 setTextOnSearchBar(""); //Svuota barra di ricerca
+                Keyboard.dismiss(); //Chiudi tastiera
             }
         })
     }
