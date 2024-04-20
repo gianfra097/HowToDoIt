@@ -48,7 +48,7 @@ const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) =>
         setTextOnSearchBar(""); //Svuota barra di ricerca
     }
 
-    //Se viene cliccato un risultato della SearchBar
+    //Se viene cliccato un risultato della SearchBar, rimandalo alla guida dedicata
     const goToGuide = (result) => {
         data.map((guide, index) => {
             if(guide.guideName === result){ //Se il nome della guida è uguale alla stringa risultato cliccata
