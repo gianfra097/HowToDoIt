@@ -47,7 +47,7 @@ const GuideInfo = ({ route }) => {
     return(
         <ImageBackground source={require('../assets/images/wallpaperHome.png')} style={styles.backgroundImage}>
             <SafeAreaView style={styles.container}>
-                <SafeAreaView style={styles.buttons}>
+                <View style={styles.buttons}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Svg fill="#ffffff" width={30} height={30} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="#ffffff">
                             <G id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -73,9 +73,9 @@ const GuideInfo = ({ route }) => {
                             </G>
                         </Svg>
                     </TouchableOpacity>
-                </SafeAreaView>
+                </View>
                 <Text allowFontScaling={false} style={styles.guideTitle}>{guide.guideName}</Text>
-                <SafeAreaView style={styles.containerVideo}>
+                <View style={styles.containerVideo}>
                     {isLoading ? (<View style={styles.loading}><ActivityIndicator size="large"/></View>) : (null)}
                     <YoutubePlayer
                         height={"100%"}
@@ -83,12 +83,12 @@ const GuideInfo = ({ route }) => {
                         play={false}
                         videoId={idVideo}
                         onReady={handleReady}/>
-                </SafeAreaView>
-                <SafeAreaView style={styles.containerGuide}>
+                </View>
+                <View style={styles.containerGuide}>
                     <ScrollView keyboardShouldPersistTaps='handled' showsVerticalScrollIndicator={false}>
                         <Text allowFontScaling={false} style={styles.guideText}>{guide.guide}</Text>
                     </ScrollView>
-                </SafeAreaView>
+                </View>
             </SafeAreaView>
         </ImageBackground>
     );

@@ -40,24 +40,24 @@ const Home = ({ navigation }) => {
                     switch (item) {
                         case 'homeScreenComponents':
                             return (
-                                <SafeAreaView>
+                                <View>
                                     <TouchableOpacity activeOpacity={1} style={{flex: 1}} onPress={() => {setIsSearchResultsVisible(false)}}>
                                         <Text allowFontScaling={false} style={styles.textWelcome}>BENVENUTO!</Text>
                                         <Text allowFontScaling={false} style={styles.textGuide}>Cerca una guida</Text>
                                     </TouchableOpacity>
                                     <SearchBar data={allGuidesNamesAndIds} searchResultsVisible={searchResultsVisible} setIsSearchResultsVisible={setIsSearchResultsVisible}/>
                                     <TouchableOpacity activeOpacity={1} style={{flex: 1, zIndex: -1}} onPress={() => {setIsSearchResultsVisible(false)}}>
-                                        <SafeAreaView style={styles.shadowContainer}>
+                                        <View style={styles.shadowContainer}>
                                             <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.6, y:1}} end={{x: 1, y: 0.7}}>
                                                 <Text allowFontScaling={false} style={styles.textExplore}> Esplora le guide, {'\n'} libera il tuo potenziale </Text>
                                                 <Image style={styles.brainImage} source={require('../src/assets/images/brain.png')}/>
                                             </LinearGradient> 
-                                        </SafeAreaView>
-                                        <SafeAreaView style={styles.categoriesContainer}>
+                                        </View>
+                                        <View style={styles.categoriesContainer}>
                                             <Text allowFontScaling={false} style={styles.textCategories}>Categorie:</Text>
                                             <Categories/>
-                                        </SafeAreaView>
-                                        <SafeAreaView style={styles.infoContainer}>
+                                        </View>
+                                        <View style={styles.infoContainer}>
                                             <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                                                 <Svg width={20} height={20} viewBox="0 0 416.979 416.979" xmlns="http://www.w3.org/2000/svg">
                                                     <G id="SVGRepo_bgCarrier" strokeWidth={0} />
@@ -67,16 +67,16 @@ const Home = ({ navigation }) => {
                                                     </G>
                                                 </Svg>
                                             </TouchableOpacity>
-                                        </SafeAreaView>
+                                        </View>
                                     </TouchableOpacity>
-                                </SafeAreaView>
+                                </View>
                             );
                         }
                 }}/>
                 <Modal transparent={true} visible={isModalVisible} onRequestClose={() => setIsModalVisible(false)} animationType="slide">
                     <TouchableOpacity style={{flex: 1}} activeOpacity={1} onPress={() => {setIsModalVisible(false)}}>
-                        <SafeAreaView style={styles.modalContainer}>
-                            <SafeAreaView>
+                        <View style={styles.modalContainer}>
+                            <View>
                                 <TouchableOpacity activeOpacity={1} style={styles.objectModalContainer}>
                                     <Text style={{fontFamily: 'Satoshi-Black', marginTop: 10, marginBottom: 5}} allowFontScaling={false}>Version:</Text>
                                     <Text style={{fontFamily: 'Satoshi-Bold', marginBottom: 15}} allowFontScaling={false}>1.0</Text>
@@ -85,8 +85,8 @@ const Home = ({ navigation }) => {
                                     <Text style={{fontFamily: 'Satoshi-Black', marginBottom: 5}} allowFontScaling={false}>Contacts:</Text>
                                     <Text style={{fontFamily: 'Satoshi-Bold', marginBottom: 15}} allowFontScaling={false}>gianfranco.iaria0@gmail.com</Text>
                                 </TouchableOpacity>
-                            </SafeAreaView>
-                        </SafeAreaView>
+                            </View>
+                        </View>
                     </TouchableOpacity>
                 </Modal>
             </SafeAreaView>

@@ -24,14 +24,14 @@ const Categories = () => {
         <SafeAreaView style={styles.container}>
             {!isLoading ? 
             (allCategories.map((category, index) => (
-                <SafeAreaView key={index}>
+                <View key={index}>
                     <TouchableOpacity onPress={() => navigation.navigate("GuidesPage", {clickedCategory: category.name, categoryID: category.id})}>
-                        <SafeAreaView style={[styles.square, index % 2 != 0 && styles.squareNotFirst]}>
+                        <View style={[styles.square, index % 2 != 0 && styles.squareNotFirst]}>
                             <Image style={styles.categoriesImage} source={{ uri: category.image }}/>
-                        </SafeAreaView>
+                        </View>
                     </TouchableOpacity>
                     <Text allowFontScaling={false} style={[styles.categoriesText, index % 2 != 0 && styles.categoriesTextNotFirst]}>{category.name}</Text>
-                </SafeAreaView>
+                </View>
             ))) : (
                 <View style={{justifyContent: "center"}}>
                     <ActivityIndicator size="large"/>
