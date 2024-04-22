@@ -92,7 +92,7 @@ const SearchBar = ({ data, searchResultsVisible, setIsSearchResultsVisible }) =>
                         {results.map((result, index) => (
                             <View key={index}>
                             <View style={{backgroundColor: "#EBE9E9", height: 2}}/>
-                            <TouchableOpacity activeOpacity={1} onPress={() => goToGuide(result)}>
+                            <TouchableOpacity onPress={() => goToGuide(result)}>
                                 <Text key={index} allowFontScaling={false} style={styles.resultsList}>• {result}</Text>
                             </TouchableOpacity>
                             </View>

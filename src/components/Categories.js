@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, SafeAreaView, Text, Image, Dimensions, TouchableOpacity} from 'react-native'
+import { StyleSheet, SafeAreaView, Text, Image, Dimensions, TouchableOpacity, View, ActivityIndicator} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import FetchAllCategories from '../lib/FetchAllCategories';
 import GuidesPage from '../pages/GuidesPage'
@@ -10,10 +10,20 @@ const Categories = () => {
 
     //Recupero i dati delle Guide
     const allCategories = FetchAllCategories();
+
+    //Timeout per spinner prima che vengono caricate tutte le categorie
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if(allCategories.length > 0){
+            setIsLoading(false)
+        }
+    })
    
     return (
         <SafeAreaView style={styles.container}>
-            {allCategories.map((category, index) => (
+            {!isLoading ? 
+            (allCategories.map((category, index) => (
                 <SafeAreaView key={index}>
                     <TouchableOpacity onPress={() => navigation.navigate("GuidesPage", {clickedCategory: category.name, categoryID: category.id})}>
                         <SafeAreaView style={[styles.square, index % 2 != 0 && styles.squareNotFirst]}>
@@ -22,7 +32,11 @@ const Categories = () => {
                     </TouchableOpacity>
                     <Text allowFontScaling={false} style={[styles.categoriesText, index % 2 != 0 && styles.categoriesTextNotFirst]}>{category.name}</Text>
                 </SafeAreaView>
-            ))}
+            ))) : (
+                <View style={{justifyContent: "center"}}>
+                    <ActivityIndicator size="large"/>
+                </View>
+            )}
         </SafeAreaView>
     )
     
