@@ -1,4 +1,5 @@
-import { StyleSheet, SafeAreaView, Text, Dimensions, TouchableOpacity, View} from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, SafeAreaView, Text, Dimensions, TouchableOpacity, View, ActivityIndicator} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, G } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
@@ -11,10 +12,20 @@ const Guides = ({ categoryID }) => {
     
     //Recupero le guide in base alla categoria cliccata
     const allGuides = FetchGuidesFromCategory(categoryID);
+
+    //Timeout per spinner prima che vengono caricate tutte le categorie
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if(allGuides.length > 0){
+            setIsLoading(false)
+        }
+    })
    
     return (
         <SafeAreaView style={styles.container}>
-            {allGuides.map((guide, index) => (
+            {!isLoading ? 
+            (allGuides.map((guide, index) => (
                 <View key={index}>
                     <TouchableOpacity onPress={() => navigation.navigate("GuideInfo", {clickedGuideID: guide.id})}>
                         <LinearGradient style={styles.rectangle} colors={["#bbf2ea", "#56d6c5"]} start={{x: 0.8, y:1.3}} end={{x: 1, y: 0}}>
@@ -40,7 +51,11 @@ const Guides = ({ categoryID }) => {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-            ))}
+            ))) : (
+                <View style={{justifyContent: "center"}}>
+                    <ActivityIndicator size="large"/>
+                </View>
+            )}
         </SafeAreaView>
     )
     
