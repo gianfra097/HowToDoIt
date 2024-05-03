@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#000000aa",
         justifyContent: "flex-end",
+        marginBottom: 20
     },
     objectModalContainer: {
         backgroundColor: 'white',
