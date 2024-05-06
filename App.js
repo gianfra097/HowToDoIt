@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 import { useFonts } from 'expo-font'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -19,7 +19,12 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <Text allowFontScaling={false} style={{textAlign: "center"}}>Loading...</Text>; // Visualizza un indicatore di caricamento fino a quando il font non è stato caricato
+    return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "white"}}>
+      <Text>Loading...</Text>
+      <ActivityIndicator size="large"/>
+    </View>
+    ); // Visualizza un indicatore di caricamento fino a quando il font non è stato caricato
   }
   //Gestisco le pagine che poi verranno utilizzate dai button nei vari file .jsx
   //headerShown: false, serve per evitare che si veda in alto il nome della pagina in cui ci si trova
